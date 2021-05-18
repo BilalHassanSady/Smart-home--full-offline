@@ -3,17 +3,20 @@
 const char* ssid = "WE_B68D97_2EX";
 const char* password = "k7916126";
 
-int in1=D4;
-int in2=D5;
-int in3=D6;
-int in4=D7;
-
+int in1=D5;
+int in2=D6;
+int in3=D7;
+int in4=D8;
+int sp = D4;
+int sen = A0;
+int val;
 WiFiServer server(80);
 
 void setup(){
   
 Serial.begin(115200);
 delay(10);
+pinMode(sp,OUTPUT);
 pinMode(in1, OUTPUT);
 pinMode(in2, OUTPUT);
 pinMode(in3, OUTPUT);
@@ -47,7 +50,13 @@ Serial.println("/");
 }
 
 void loop() {
-  
+val = analogRead(sen);
+if(val>500){
+tone(sp,250);
+}
+else{
+noTone(sp);
+}
 WiFiClient client = server.available();
 if (!client) {
 return;
